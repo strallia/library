@@ -1,3 +1,5 @@
+const myLibrary = [];
+
 // DIALOG BUTTONS
 const dialog = document.querySelector("dialog");
 const openDialogBtn = document.querySelector(".open-dialog");
@@ -21,21 +23,29 @@ closeDialogBtn.addEventListener('click', () => {
 });
 addBookBtn.addEventListener('click', (event) => {
   event.preventDefault();
-  let obj = {};
-    obj.title = titleInput.value;
-    obj.author = authorInput.value;
-    obj.pages = pagesInput.value;
-    if (readStatusInput.checked) { 
-      obj.readStatus = readStatusInput.value; 
-    } else {
-      obj.readStatus = "";
-    };
-  btnTestFunction(obj);
+  let readStatusValue;
+  if (readStatusInput.checked) { 
+    readStatusValue = readStatusInput.value; 
+  } else {
+    readStatusValue = "";
+  };
+  myLibrary.push( new Book(
+    titleInput.value,
+    authorInput.value,
+    pagesInput.value,
+    readStatusValue
+  ));
   form.reset();
   dialog.close();
-})
+});
 
-function btnTestFunction(obj) {
-  console.log("Run btnTestFunction with form inputs:", obj);
+
+function Book(title, author, pages, readStatus) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.readStatus = readStatus;
+  this.info = function() {
+    return `${title} by ${author}, ${pages} pages, ${readStatus}`;
+  }
 }
-
