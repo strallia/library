@@ -6,6 +6,7 @@ const addBookBtn = document.querySelector(".add-book");
 
 
 // FORM INPUTS
+const form = document.querySelector("form");
 const titleInput = document.querySelector("#title");
 const authorInput = document.querySelector("#author");
 const pagesInput = document.querySelector("#pages");
@@ -14,7 +15,10 @@ const readStatusInput = document.querySelector("#read-status");
 
 // EVENT LISTENERS
 openDialogBtn.addEventListener('click', () => dialog.showModal());
-closeDialogBtn.addEventListener('click', () => dialog.close());
+closeDialogBtn.addEventListener('click', () => {
+  form.reset();
+  dialog.close();
+});
 addBookBtn.addEventListener('click', (event) => {
   event.preventDefault();
   let obj = {};
@@ -25,8 +29,9 @@ addBookBtn.addEventListener('click', (event) => {
       obj.readStatus = readStatusInput.value; 
     } else {
       obj.readStatus = "";
-    }
+    };
   btnTestFunction(obj);
+  form.reset();
   dialog.close();
 })
 
