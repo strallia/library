@@ -70,31 +70,31 @@ function renderBooks(myLibrary) {
   // render each book
   myLibrary.forEach((book, index) => {
     const bookDiv = document.createElement('div');
-    bookDiv.classList.add('book');
+    bookDiv.classList.add('book', 'parent');
 
+    // remove button
+      const removeBtn = createRemoveBtn(index);
+      bookDiv.appendChild(removeBtn);
     // title
-      const title = document.createElement('p');
+      const title = document.createElement('h3');
       title.classList.add('title');
-      title.textContent = `Title: ${book.title}`;
+      title.textContent = `${book.title}`;
       bookDiv.appendChild(title);
     // author
       const author = document.createElement('p');
       author.classList.add('author');
-      author.textContent = `Author: ${book.author}`;
+      author.textContent = `${book.author}`;
       bookDiv.appendChild(author);
     // pages
       const pages = document.createElement('p');
       pages.classList.add('pages');
-      pages.textContent = `Pages: ${book.pages}`;
+      pages.textContent = `${book.pages} pages`;
       bookDiv.appendChild(pages);
     // read status
       const readStatus = document.createElement('p');
       readStatus.classList.add('readStatus');
       readStatus.textContent = `Read status: ${book.readStatus}`;
       bookDiv.appendChild(readStatus);
-    // remove button
-      const removeBtn = createRemoveBtn(index);
-      bookDiv.appendChild(removeBtn);
 
     shelfDiv.appendChild(bookDiv);
   });
