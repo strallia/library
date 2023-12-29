@@ -25,7 +25,7 @@ addBookBtn.addEventListener('click', (event) => {
   } else {
     readStatusValue = "";
   };
-  myLibrary.unshift(new Book(
+  myLibrary.push(new Book(
     titleInput.value,
     authorInput.value,
     pagesInput.value,
@@ -37,7 +37,7 @@ addBookBtn.addEventListener('click', (event) => {
 });
 
 
-// BOOKS
+// BOOK CONSTRUCTOR
 function Book(title, author, pages, readStatus) {
   this.title = title;
   this.author = author;
@@ -48,6 +48,8 @@ function Book(title, author, pages, readStatus) {
   }
 }
 
+
+// RENDER BOOKS
 const shelfDiv = document.querySelector('.shelf');
 function renderBooks(myLibrary) {
   // clear shelf
@@ -59,15 +61,33 @@ function renderBooks(myLibrary) {
   };
   
   // render each book
-  myLibrary.forEach((book) => {
+  myLibrary.forEach((book, index) => {
     const bookDiv = document.createElement('div');
+    bookDiv.classList.add('book');
     bookDiv.textContent = `
       Title: ${book.title},
       Author: ${book.author},
       Pages: ${book.pages},
       Read Status: ${book.readStatus}
     `;
-    bookDiv.classList.add('book');
+
+    const removeBtn = createRemoveBtn(index);
+    bookDiv.appendChild(removeBtn);
+    
     shelfDiv.appendChild(bookDiv);
   });
+}
+
+function createRemoveBtn(index) {
+  const removeBtn = document.createElement('button');
+  removeBtn.classList.add('remove');
+  removeBtn.setAttribute('data-index', index);
+  removeBtn.textContent = 'X';
+  removeBtn.addEventListener('click', (event) => {
+    const clickedBtn = event.target;
+    const bookIndex = clickedBtn.getAttribute('data-index');
+    myLibrary.splice(bookIndex, 1);
+    renderBooks(myLibrary);
+  });
+  return removeBtn;
 }
