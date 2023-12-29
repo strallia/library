@@ -1,4 +1,9 @@
-const myLibrary = [];
+const myLibrary = [{
+  title: "The Hobbit",
+  author: "Tolkien",
+  pages: 123,
+  readStatus: "read",
+},];
 
 // DIALOG and FORM
 const dialog = document.querySelector("dialog");
@@ -51,6 +56,8 @@ function Book(title, author, pages, readStatus) {
 
 // RENDER BOOKS
 const shelfDiv = document.querySelector('.shelf');
+renderBooks(myLibrary);
+
 function renderBooks(myLibrary) {
   // clear shelf
   const currentBooks = document.querySelectorAll('.book');
@@ -64,16 +71,31 @@ function renderBooks(myLibrary) {
   myLibrary.forEach((book, index) => {
     const bookDiv = document.createElement('div');
     bookDiv.classList.add('book');
-    bookDiv.textContent = `
-      Title: ${book.title},
-      Author: ${book.author},
-      Pages: ${book.pages},
-      Read Status: ${book.readStatus}
-    `;
 
-    const removeBtn = createRemoveBtn(index);
-    bookDiv.appendChild(removeBtn);
-    
+    // title
+      const title = document.createElement('p');
+      title.classList.add('title');
+      title.textContent = `Title: ${book.title}`;
+      bookDiv.appendChild(title);
+    // author
+      const author = document.createElement('p');
+      author.classList.add('author');
+      author.textContent = `Author: ${book.author}`;
+      bookDiv.appendChild(author);
+    // pages
+      const pages = document.createElement('p');
+      pages.classList.add('pages');
+      pages.textContent = `Pages: ${book.pages}`;
+      bookDiv.appendChild(pages);
+    // read status
+      const readStatus = document.createElement('p');
+      readStatus.classList.add('readStatus');
+      readStatus.textContent = `Read status: ${book.readStatus}`;
+      bookDiv.appendChild(readStatus);
+    // remove button
+      const removeBtn = createRemoveBtn(index);
+      bookDiv.appendChild(removeBtn);
+
     shelfDiv.appendChild(bookDiv);
   });
 }
