@@ -2,7 +2,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  outline: 1px solid red;
+  /* outline: 1px solid red; */
 }
 
 .parent {
@@ -38,13 +38,24 @@ dialog::backdrop {
 }
 
 button.open-dialog {
-  background-color: whitesmoke;
+  background-color: rgba(65, 65, 65, 0.5);
+  font-size: 100px;
+  border: none;
+  box-shadow: inset 3px 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+button.open-dialog:active {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+button.open-dialog,
+.book {
+  border-radius: 5px;
 }
 
 .book {
   background-color: rgb(64, 79, 57);
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
   text-align: center;
   min-height: 200px;
   position: relative;
