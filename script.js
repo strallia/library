@@ -1,8 +1,8 @@
 const myLibrary = [{
   title: "The Hobbit",
   author: "Tolkien",
-  pages: 123,
-  readStatus: "read",
+  totalPages: 123,
+  currentPage: 50,
 },];
 
 // DIALOG and FORM
@@ -15,7 +15,8 @@ const form = document.querySelector("form");
 const titleInput = document.querySelector("#title");
 const authorInput = document.querySelector("#author");
 const pagesInput = document.querySelector("#pages");
-const readStatusInput = document.querySelector("#read-status");
+const totalPagesInput = document.querySelector("#total-pages");
+const currentPageInput = document.querySelector("#current-page");
 
 openDialogBtn.addEventListener('click', () => dialog.showModal());
 closeDialogBtn.addEventListener('click', () => {
@@ -24,17 +25,11 @@ closeDialogBtn.addEventListener('click', () => {
 });
 addBookBtn.addEventListener('click', (event) => {
   event.preventDefault();
-  let readStatusValue;
-  if (readStatusInput.checked) { 
-    readStatusValue = readStatusInput.value; 
-  } else {
-    readStatusValue = "";
-  };
   myLibrary.push(new Book(
     titleInput.value,
     authorInput.value,
-    pagesInput.value,
-    readStatusValue
+    totalPagesInput.value,
+    currentPageInput.value
   ));
   renderBooks(myLibrary);
   form.reset();
@@ -43,14 +38,14 @@ addBookBtn.addEventListener('click', (event) => {
 
 
 // BOOK CONSTRUCTOR
-function Book(title, author, pages, readStatus) {
+function Book(title, author, totalPages, currentPage) {
   this.title = title;
   this.author = author;
-  this.pages = pages;
-  this.readStatus = readStatus;
+  this.totalPages = totalPages;
+  this.currentPage = currentPage;
   this.info = function() {
-    return `${title} by ${author}, ${pages} pages, ${readStatus}`;
-  }
+    return `${title} by ${author}, ${totalPages} pages, ${currentPage/totalPages}`;
+  };
 }
 
 
@@ -85,16 +80,23 @@ function renderBooks(myLibrary) {
       author.classList.add('author');
       author.textContent = `${book.author}`;
       bookDiv.appendChild(author);
-    // pages
-      const pages = document.createElement('p');
-      pages.classList.add('pages');
-      pages.textContent = `${book.pages} pages`;
-      bookDiv.appendChild(pages);
-    // read status
-      const readStatus = document.createElement('p');
-      readStatus.classList.add('readStatus');
-      readStatus.textContent = `Read status: ${book.readStatus}`;
-      bookDiv.appendChild(readStatus);
+    // total pages
+      const totalPages = document.createElement('p');
+      totalPages.classList.add('total-pages');
+      totalPages.textContent = `${book.totalPages} pages`;
+      bookDiv.appendChild(totalPages);
+    // progress bar
+      const progressBar = document.createElement('progress');
+      progressBar.classList.add('progress-bar');
+      progressBar.setAttribute('max', `${book.totalPages}`);
+      progressBar.setAttribute('value', `${book.currentPage}`);
+      bookDiv.appendChild(progressBar);
+    // edit progress button
+      const editProgressBtn = document.createElement('button');
+      editProgressBtn.classList.add('edit-progress');
+      editProgressBtn.textContent = 'Edit';
+      editProgressBtn.addEventListener('click', editProgress);
+      bookDiv.appendChild(editProgressBtn);
 
     shelfDiv.appendChild(bookDiv);
   });
@@ -112,4 +114,8 @@ function createRemoveBtn(index) {
     renderBooks(myLibrary);
   });
   return removeBtn;
+}
+
+function editProgress() {
+  console.log('clicked editProgress button')
 }

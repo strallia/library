@@ -5,31 +5,38 @@
   /* outline: 1px solid red; */
 }
 
+
+/* OVERALL LAYOUT */
 .parent {
   display: grid;
 }
-
 body {
  padding: 30px;
  background-color: rgb(223, 216, 195);
  min-height: 100vh;
 }
-
 .shelf-backing {
   background-color: rgb(248, 244, 235);
   border-radius: 10px;
 }
-
 h1 {
   justify-self: center;
   padding-top: 15px;
 }
+.shelf {
+  padding: 30px;
+  grid-template-columns: repeat(auto-fill, 150px);
+  gap: 50px;
+  font-family: sans-serif;
+}
 
+
+/* DIALOG and FORM */
 dialog {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 45%;
+  height: min-content;
   border: none;
   padding: 20px;
   border-radius: 5px;
@@ -45,12 +52,11 @@ form {
   gap: 30px;
   align-content: center;
   height: 100%;
-  grid-template-columns: minmax(150px, 300px) 60px;
+  grid-template-columns: repeat(2, minmax(100px, 150px));
   color: grey;
 }
 .title-div,
-.read-status-div ,
-.read-status-div,
+.author-div,
 .dialog-btns {
   grid-column: 1/3;
 }
@@ -60,12 +66,12 @@ form {
   gap: 10px;
   align-items: center;
 }
-form div:nth-child(-n+3) {
+form div:nth-child(-n+4) {
   display:flex;
   flex-direction: column;
   gap: 3px;
 }
-form div:nth-child(-n+3) input {
+form div:nth-child(-n+4) input {
   height: 40px;
   border: none;
   border-bottom: 2px solid lightgray;
@@ -99,24 +105,17 @@ button.close-dialog {
   box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
 }
 
-.shelf {
-  padding: 30px;
-  grid-template-columns: repeat(auto-fill, 150px);
-  gap: 50px;
-  font-family: sans-serif;
-}
 
+/* SHELF ITEMS */
 button.open-dialog {
   background-color: rgba(65, 65, 65, 0.5);
   font-size: 100px;
   border: none;
   box-shadow: inset 3px 3px 10px rgba(0, 0, 0, 0.5);
 }
-
 button.open-dialog:active {
   background-color: rgba(0, 0, 0, 0.8);
 }
-
 button.open-dialog,
 .book {
   border-radius: 5px;
@@ -134,8 +133,10 @@ button.open-dialog,
   height: 150px;
   grid-template-rows: repeat(5, min-content);
   align-content: center;
+  justify-content: center;
+  justify-items: center;
+  padding: 20px;
 }
-
 button.remove {
   position: absolute;
   top: 5px;
@@ -149,16 +150,27 @@ button.remove {
   background-color: rgb(225, 80, 80);
   margin-top: 1px;
 }
-
 button.remove:active {
   background: brown;
   opacity: 0.3;
 }
-
 .title {
   font-size: 1.5em;
 }
-
-.author {
-  font-size: 1em;
+.progress-bar {
+  margin-top: 30px;
+}
+button.edit-progress {
+  width: min-content;
+  padding: 2px 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(245, 222, 179, 0.5);
+  font-size: 10px;
+}
+button.edit-progress:hover {
+  background-color: rgb(245, 222, 179);
+}
+button.edit-progress:active {
+  background-color: rgb(169, 153, 121);
 }
