@@ -25,9 +25,73 @@ h1 {
   padding-top: 15px;
 }
 
+dialog {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 45%;
+  border: none;
+  padding: 20px;
+  border-radius: 5px;
+  min-width: min-content;
+  font-family: sans-serif;
+  border: 2px solid rgb(122, 122, 122);
+}
 dialog::backdrop {
-  background-color: grey;
-  opacity: 0.5;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+form {
+  gap: 30px;
+  align-content: center;
+  height: 100%;
+  grid-template-columns: minmax(150px, 300px) 60px;
+  color: grey;
+}
+.title-div,
+.read-status-div ,
+.read-status-div,
+.dialog-btns {
+  grid-column: 1/3;
+}
+.read-status-div {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+form div:nth-child(-n+3) {
+  display:flex;
+  flex-direction: column;
+  gap: 3px;
+}
+form div:nth-child(-n+3) input {
+  height: 40px;
+  border: none;
+  border-bottom: 2px solid lightgray;
+  background-color: whitesmoke;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+}
+form div:nth-child(-n+4) input:focus {
+  outline: 2px solid rgb(44, 128, 255);
+}
+.dialog-btns {
+  display: flex;
+  justify-content: space-between;
+}
+.dialog-btns button {
+  font-size: 16px;
+  padding: 8px;
+  border: none;
+  background-color: rgb(48, 112, 48);
+  color: white;
+  border-radius: 5px;
+}
+.dialog-btns button:active {
+  box-shadow: inset 0 0 30px black;
 }
 
 .shelf {
