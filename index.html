@@ -9,6 +9,7 @@
 </head>
 <body>
   <dialog>
+    <h1>Add New Book</h1>
     <form action="" method="" class="parent inputs">
       <div class="title-div">
         <label for="title">Title</label>
@@ -17,6 +18,15 @@
       <div class="author-div">
         <label for="author">Author</label>
         <input id="author" type="text" name="author">
+      </div>
+      <div class="read-status-div">
+        <label for="read-status">Reading status</label>
+        <select id="read-status" name="read-status">
+          <option value="">-- Please select an option --</option>
+          <option value="want to read">want to read</option>
+          <option value="currently reading">currently reading</option>
+          <option value="complete">completed</option>
+        </select>
       </div>
       <div class="total-pages-div">
         <label for="total-pages">Total pages</label>
