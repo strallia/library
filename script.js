@@ -14,7 +14,7 @@ const addBookBtn = document.querySelector(".add-book");
 const form = document.querySelector("form");
 const titleInput = document.querySelector("#title");
 const authorInput = document.querySelector("#author");
-const pagesInput = document.querySelector("#pages");
+const readStatusInput = document.querySelector("#read-status");
 const totalPagesInput = document.querySelector("#total-pages");
 const currentPageInput = document.querySelector("#current-page");
 
@@ -35,6 +35,12 @@ addBookBtn.addEventListener('click', (event) => {
   form.reset();
   dialog.close();
 });
+readStatusInput.addEventListener('change', () => {
+  currentPageInput.setAttribute('disabled', '');
+  if (readStatusInput.value === 'currently reading') {
+    currentPageInput.removeAttribute('disabled', '');
+  };
+})
 
 
 // BOOK CONSTRUCTOR
