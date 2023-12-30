@@ -172,10 +172,14 @@ button.remove:active {
   font-size: 1.5em;
 }
 .progress-bar,
-.complete {
+.complete-status-div {
   margin-top: 30px;
 }
-button.edit-progress {
+.progress-btns-div {
+  display: flex;
+  gap: 20px;
+}
+.progress-btns-div button {
   width: min-content;
   padding: 2px 5px;
   border-radius: 5px;
@@ -183,20 +187,20 @@ button.edit-progress {
   background-color: rgba(245, 222, 179, 0.5);
   font-size: 10px;
 }
-button.edit-progress:hover {
+.progress-btns-div button:hover {
   background-color: rgb(245, 222, 179);
 }
-button.edit-progress:active {
+.progress-btns-div button:active {
   background-color: rgb(169, 153, 121);
 }
-.complete {
+.complete-status-div {
   display: flex;
   gap: 5px;
   font-style: italic;
   align-items: center;
   font-size: 1.3em;
 }
-.complete p {
+.complete-status-div p {
   color: limegreen;
   font-size: 1.4em;
 }

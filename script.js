@@ -95,14 +95,14 @@ function renderBooks(myLibrary) {
     totalPages.textContent = `${book.totalPages} pages`;
     bookDiv.appendChild(totalPages);
     // progress bar
-    if (book.readStatus === 'currently reading') {
-      const [progressBar, editProgressBtn] = createProgressBar(book);
+    if (book.readStatus === 'currently reading'
+    || book.readStatus === 'not started yet') {
+      const [progressBar, progressBtnsDiv] = createProgressBar(book);
       bookDiv.appendChild(progressBar);
-      bookDiv.appendChild(editProgressBtn);
+      bookDiv.appendChild(progressBtnsDiv);
     };
     // complete status
-    if (book.readStatus === 'not started yet'
-    || book.readStatus === 'completed') {
+    if (book.readStatus === 'completed') {
       const completeStatusDiv = createCompleteStatus();
       bookDiv.appendChild(completeStatusDiv);
     };
@@ -130,18 +130,29 @@ function createProgressBar(book) {
   progressBar.setAttribute('max', `${book.totalPages}`);
   progressBar.setAttribute('value', `${book.currentPage}`);
 
+  const progressBtnsDiv = document.createElement('div');
+  progressBtnsDiv.classList.add('progress-btns-div');
+
   const editProgressBtn = document.createElement('button');
-  editProgressBtn.classList.add('edit-progress');
   editProgressBtn.textContent = 'Edit';
   editProgressBtn.addEventListener('click', editProgress);
-  return [progressBar, editProgressBtn];
+  progressBtnsDiv.appendChild(editProgressBtn);
+
+  const completeBtn = document.createElement('button');
+  completeBtn.textContent = 'Complete';
+  completeBtn.addEventListener('click', () => {
+    console.log('clicked complete btn');
+  });
+  progressBtnsDiv.appendChild(completeBtn);
+
+  return [progressBar, progressBtnsDiv];
 }
 function editProgress() {
   console.log('clicked editProgress button')
 }
 function createCompleteStatus() {
   const completeStatusDiv = document.createElement('div');
-  completeStatusDiv.classList.add('complete');
+  completeStatusDiv.classList.add('complete-status-div');
   completeStatusDiv.textContent = 'complete';
 
   const checkmark = document.createElement('p');
