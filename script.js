@@ -1,6 +1,7 @@
 const myLibrary = [{
   title: "The Hobbit",
   author: "Tolkien",
+  readStatus: "currently reading",
   totalPages: 123,
   currentPage: 50,
 },];
@@ -28,6 +29,7 @@ addBookBtn.addEventListener('click', (event) => {
   myLibrary.push(new Book(
     titleInput.value,
     authorInput.value,
+    readStatusInput.value,
     totalPagesInput.value,
     currentPageInput.value
   ));
@@ -44,9 +46,10 @@ readStatusInput.addEventListener('change', () => {
 
 
 // BOOK CONSTRUCTOR
-function Book(title, author, totalPages, currentPage) {
+function Book(title, author, readStatus, totalPages, currentPage) {
   this.title = title;
   this.author = author;
+  this.readStatus = readStatus;
   this.totalPages = totalPages;
   this.currentPage = currentPage;
   this.info = function() {
@@ -74,36 +77,36 @@ function renderBooks(myLibrary) {
     bookDiv.classList.add('book', 'parent');
 
     // remove button
-      const removeBtn = createRemoveBtn(index);
-      bookDiv.appendChild(removeBtn);
+    const removeBtn = createRemoveBtn(index);
+    bookDiv.appendChild(removeBtn);
     // title
-      const title = document.createElement('h3');
-      title.classList.add('title');
-      title.textContent = `${book.title}`;
-      bookDiv.appendChild(title);
+    const title = document.createElement('h3');
+    title.classList.add('title');
+    title.textContent = `${book.title}`;
+    bookDiv.appendChild(title);
     // author
-      const author = document.createElement('p');
-      author.classList.add('author');
-      author.textContent = `${book.author}`;
-      bookDiv.appendChild(author);
+    const author = document.createElement('p');
+    author.classList.add('author');
+    author.textContent = `${book.author}`;
+    bookDiv.appendChild(author);
     // total pages
-      const totalPages = document.createElement('p');
-      totalPages.classList.add('total-pages');
-      totalPages.textContent = `${book.totalPages} pages`;
-      bookDiv.appendChild(totalPages);
+    const totalPages = document.createElement('p');
+    totalPages.classList.add('total-pages');
+    totalPages.textContent = `${book.totalPages} pages`;
+    bookDiv.appendChild(totalPages);
     // progress bar
-      const progressBar = document.createElement('progress');
-      progressBar.classList.add('progress-bar');
-      progressBar.setAttribute('max', `${book.totalPages}`);
-      progressBar.setAttribute('value', `${book.currentPage}`);
+    if (book.readStatus === 'currently reading') {
+      const [progressBar, editProgressBtn] = createProgressBar(book);
       bookDiv.appendChild(progressBar);
-    // edit progress button
-      const editProgressBtn = document.createElement('button');
-      editProgressBtn.classList.add('edit-progress');
-      editProgressBtn.textContent = 'Edit';
-      editProgressBtn.addEventListener('click', editProgress);
       bookDiv.appendChild(editProgressBtn);
-
+    };
+    // complete status
+    if (book.readStatus === 'not started yet'
+    || book.readStatus === 'completed') {
+      const completeStatusDiv = createCompleteStatus();
+      bookDiv.appendChild(completeStatusDiv);
+    };
+    
     shelfDiv.appendChild(bookDiv);
   });
 }
@@ -121,7 +124,28 @@ function createRemoveBtn(index) {
   });
   return removeBtn;
 }
+function createProgressBar(book) {
+  const progressBar = document.createElement('progress');
+  progressBar.classList.add('progress-bar');
+  progressBar.setAttribute('max', `${book.totalPages}`);
+  progressBar.setAttribute('value', `${book.currentPage}`);
 
+  const editProgressBtn = document.createElement('button');
+  editProgressBtn.classList.add('edit-progress');
+  editProgressBtn.textContent = 'Edit';
+  editProgressBtn.addEventListener('click', editProgress);
+  return [progressBar, editProgressBtn];
+}
 function editProgress() {
   console.log('clicked editProgress button')
+}
+function createCompleteStatus() {
+  const completeStatusDiv = document.createElement('div');
+  completeStatusDiv.classList.add('complete');
+  completeStatusDiv.textContent = 'complete';
+
+  const checkmark = document.createElement('p');
+  checkmark.textContent = '✔';
+  completeStatusDiv.appendChild(checkmark);
+  return completeStatusDiv;
 }

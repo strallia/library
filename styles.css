@@ -171,7 +171,8 @@ button.remove:active {
 .title {
   font-size: 1.5em;
 }
-.progress-bar {
+.progress-bar,
+.complete {
   margin-top: 30px;
 }
 button.edit-progress {
@@ -187,4 +188,15 @@ button.edit-progress:hover {
 }
 button.edit-progress:active {
   background-color: rgb(169, 153, 121);
+}
+.complete {
+  display: flex;
+  gap: 5px;
+  font-style: italic;
+  align-items: center;
+  font-size: 1.3em;
+}
+.complete p {
+  color: limegreen;
+  font-size: 1.4em;
 }
