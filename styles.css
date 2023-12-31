@@ -203,18 +203,19 @@ button.open-dialog,
 }
 button.remove {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  justify-self: right;
-  height: 20px;
-  width: 20px;
-  border-radius: 50px;
-  border: 2px solid black;
-  color: black;
-  background-color: rgb(225, 80, 80);
-  margin-top: 1px;
+  top: 0;
+  right: 0;
+  background: none;
+  font-size: 1.5em;
+  color: red;  
+  
+}
+button.remove:hover {
+  background-color: transparent;
+  color: white;
+  
 }
 button.remove:active {
-  background: brown;
-  opacity: 0.3;
+  background: transparent;
+  color: darkred;
 }
