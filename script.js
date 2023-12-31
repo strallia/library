@@ -48,22 +48,25 @@ function Book(title, author, readStatus, totalPages, currentPage) {
   this.readStatus = readStatus;
   this.totalPages = totalPages;
   this.currentPage = currentPage;
-  this.info = function() {
-    return `${title} by ${author}, ${totalPages} pages, ${currentPage/totalPages}`;
-  };
 }
-Book.prototype.toggleReadStatus = function(btnClicked, index) {
+Book.prototype.toggleReadStatus = function(btnClicked, book) {
   if (btnClicked === 'complete') {
-    myLibrary[index].readStatus = "completed";
-    myLibrary[index].currentPage = myLibrary[index].totalPages;
+    book.readStatus = "completed";
+    book.currentPage = book.totalPages;
   } else if (btnClicked === 'read again') {
-    myLibrary[index].readStatus = "not started yet";
-    myLibrary[index].currentPage = "";
+    book.readStatus = "not started yet";
+    book.currentPage = "";
   };
   renderBooks(myLibrary);
 };
-Book.prototype.editProgress = function() {
-  console.log('clicked editProgress button');
+Book.prototype.displayEditProgressInput = function(book) {
+  book.readStatus = '.edit progress';
+  renderBooks(myLibrary);
+};
+Book.prototype.updateProgressBar = function(book, currentPage) {
+  book.readStatus = 'currently reading';
+  book.currentPage = currentPage;
+  renderBooks(myLibrary);
 };
 
 
@@ -86,8 +89,7 @@ function renderBooks(myLibrary) {
     bookDiv.classList.add('book', 'parent');
 
     // remove button
-    const removeBtn = createRemoveBtn(index);
-    bookDiv.appendChild(removeBtn);
+    bookDiv.appendChild(createRemoveBtn(index));
     // title
     const title = document.createElement('h3');
     title.classList.add('title');
@@ -110,10 +112,17 @@ function renderBooks(myLibrary) {
       bookDiv.appendChild(progressBar);
       bookDiv.appendChild(progressBtnsDiv);
     };
+    // edit progress
+    if (book.readStatus === '.edit progress') {
+      const [editProgressDiv, enterBtn] = createEditProgress(book);
+      bookDiv.appendChild(editProgressDiv);
+      bookDiv.appendChild(enterBtn);
+    }
     // complete status
     if (book.readStatus === 'completed') {
-      const completeStatusDiv = createCompleteStatus(index);
+      const [completeStatusDiv, readAgainBtn] = createCompleteStatus(book);
       bookDiv.appendChild(completeStatusDiv);
+      bookDiv.appendChild(readAgainBtn);
     };
     
     shelfDiv.appendChild(bookDiv);
@@ -142,22 +151,40 @@ function createProgressBar(book, index) {
   progressBtnsDiv.classList.add('progress-btns-div');
 
   const editProgressBtn = document.createElement('button');
-  editProgressBtn.textContent = 'Edit';
+  editProgressBtn.textContent = 'Edit progress';
   editProgressBtn.addEventListener('click', () => {
-    myLibrary[index].editProgress();
+    book.displayEditProgressInput(book);
   });
   progressBtnsDiv.appendChild(editProgressBtn);
 
   const completeBtn = document.createElement('button');
   completeBtn.textContent = 'Complete';
   completeBtn.addEventListener('click', () => {
-    myLibrary[index].toggleReadStatus('complete', index);
+    book.toggleReadStatus('complete', book);
   });
   progressBtnsDiv.appendChild(completeBtn);
 
   return [progressBar, progressBtnsDiv];
 }
-function createCompleteStatus(index) {
+function createEditProgress(book) {
+  const editProgressDiv = document.createElement('div');
+  editProgressDiv.classList.add('edit-progress-div');
+
+  const input = document.createElement('input');
+  input.setAttribute('type', 'text');
+  const para = document.createElement('p');
+  para.textContent = ` / ${book.totalPages} pages`;
+  const enterBtn = document.createElement('button');
+  enterBtn.textContent = 'Enter';
+  enterBtn.addEventListener('click', () => { 
+    book.updateProgressBar(book, input.value);
+  });
+
+  editProgressDiv.appendChild(input);
+  editProgressDiv.appendChild(para);
+  return [editProgressDiv, enterBtn];
+}
+function createCompleteStatus(book) {
   const completeStatusDiv = document.createElement('div');
   completeStatusDiv.classList.add('complete-status-div', 'parent');
   completeStatusDiv.textContent = 'complete';
@@ -169,9 +196,8 @@ function createCompleteStatus(index) {
   const readAgainBtn = document.createElement('button');
   readAgainBtn.textContent = 'Read again';
   readAgainBtn.addEventListener('click', () => {
-    myLibrary[index].toggleReadStatus('read again', index);
+    book.toggleReadStatus('read again', book);
   });
-  completeStatusDiv.appendChild(readAgainBtn);
 
-  return completeStatusDiv;
+  return [completeStatusDiv, readAgainBtn];
 }
