@@ -26,8 +26,17 @@ body {
 }
 h1 {
   justify-self: center;
-  padding-top: 30px;
+  padding: 30px 20px 0 20px;
   font-family: 'Libre Baskerville', serif;
+}
+h1 img {
+  width: 50px;
+}
+.shelf-backing > h1 {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 40px;
 }
 .shelf {
   padding: 30px;
