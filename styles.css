@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
-  /* outline: 1px solid red; */
+  font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -24,7 +26,8 @@ body {
 }
 h1 {
   justify-self: center;
-  padding-top: 15px;
+  padding-top: 30px;
+  font-family: 'Libre Baskerville', serif;
 }
 .shelf {
   padding: 30px;
@@ -51,7 +54,7 @@ dialog::backdrop {
   backdrop-filter: blur(10px);
 }
 dialog > h1 {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   padding: 0;
 }
 form {
@@ -164,6 +167,7 @@ button.open-dialog,
 }
 .title {
   font-size: 1.8em;
+  font-family: 'Libre Baskerville', serif;
 }
 .progress-bar,
 .edit-progress-div,
