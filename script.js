@@ -2,6 +2,7 @@ const myLibrary = [
   new Book("The Hobbit", "J.R.R. Tolkien", "currently reading", 123, 50),
 ];
 
+
 // DIALOG and FORM
 const dialog = document.querySelector("dialog");
 const openDialogBtn = document.querySelector(".open-dialog");
@@ -14,13 +15,16 @@ const authorInput = document.querySelector("#author");
 const readStatusInput = document.querySelector("#read-status");
 const totalPagesInput = document.querySelector("#total-pages");
 const currentPageInput = document.querySelector("#current-page");
+const hiddenAsterisk = document.querySelector('span.hidden');
 
 openDialogBtn.addEventListener('click', () => dialog.showModal());
-closeDialogBtn.addEventListener('click', () => {
+closeDialogBtn.addEventListener('click', (event) => {
+  event.preventDefault();
   form.reset();
   dialog.close();
 });
 addBookBtn.addEventListener('click', (event) => {
+  if (form.checkValidity()) {
   event.preventDefault();
   myLibrary.push(new Book(
     titleInput.value,
@@ -32,14 +36,19 @@ addBookBtn.addEventListener('click', (event) => {
   renderBooks(myLibrary);
   form.reset();
   dialog.close();
+};
 });
 readStatusInput.addEventListener('change', () => {
   currentPageInput.setAttribute('disabled', '');
+  hiddenAsterisk.classList.add('hidden');
   if (readStatusInput.value === 'currently reading') {
     currentPageInput.removeAttribute('disabled', '');
+    hiddenAsterisk.classList.remove('hidden');
   };
-})
-
+});
+totalPagesInput.addEventListener('change', () => {
+  currentPageInput.setAttribute('max', `${totalPagesInput.value}`);
+});
 
 // BOOK CONSTRUCTOR
 function Book(title, author, readStatus, totalPages, currentPage) {
