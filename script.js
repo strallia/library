@@ -1,5 +1,5 @@
 const myLibrary = [
-  new Book("The Hobbit", "J.R.R. Tolkien", "currently reading", 123, 50),
+  new Book("The Hobbit", "J.R.R. Tolkien", "currently reading", 310, 100),
 ];
 
 
