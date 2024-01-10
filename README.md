@@ -2,11 +2,11 @@
 
 [Live Demo](https://strallia.github.io/library/)
 
-A virtual bookshelf where users track their books and reading progress.
+A virtual bookshelf for users to track their books and reading progress.
 
 ## Purpose
 
-Practice using objects, object constructors, and prototypes to organize JavaScript code.
+Practice using objects, object constructors, prototypes, and classes to organize JavaScript code.
 
 ## Features 
 

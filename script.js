@@ -1,3 +1,44 @@
+// BOOK CLASS
+class Book {
+  constructor(title, author, readStatus, totalPages, currentPage) {
+    this.title = title;
+    this.author = author;
+    this.readStatus = readStatus;
+    this.totalPages = totalPages;
+    this.currentPage = currentPage;
+  }
+  
+  get title() {
+    return this._title;
+  }
+
+  set title(string) {
+    this._title = string;
+  }
+
+  toggleReadStatus(btnClicked, book) {
+    if (btnClicked === 'complete') {
+      book.readStatus = "completed";
+      book.currentPage = book.totalPages;
+    } else if (btnClicked === 'read again') {
+      book.readStatus = "not started yet";
+      book.currentPage = "";
+    };
+    renderBooks(myLibrary);
+  }
+
+  displayEditProgressInput(book) {
+    book.readStatus = '.edit progress';
+    renderBooks(myLibrary);
+  }
+
+  updateProgressBar(book, currentPage) {
+    book.readStatus = 'currently reading';
+    book.currentPage = currentPage;
+    renderBooks(myLibrary);
+  }
+};
+
 const myLibrary = [
   new Book("The Hobbit", "J.R.R. Tolkien", "currently reading", 310, 100),
 ];
@@ -49,34 +90,6 @@ readStatusInput.addEventListener('change', () => {
 totalPagesInput.addEventListener('change', () => {
   currentPageInput.setAttribute('max', `${totalPagesInput.value}`);
 });
-
-// BOOK CONSTRUCTOR
-function Book(title, author, readStatus, totalPages, currentPage) {
-  this.title = title;
-  this.author = author;
-  this.readStatus = readStatus;
-  this.totalPages = totalPages;
-  this.currentPage = currentPage;
-}
-Book.prototype.toggleReadStatus = function(btnClicked, book) {
-  if (btnClicked === 'complete') {
-    book.readStatus = "completed";
-    book.currentPage = book.totalPages;
-  } else if (btnClicked === 'read again') {
-    book.readStatus = "not started yet";
-    book.currentPage = "";
-  };
-  renderBooks(myLibrary);
-};
-Book.prototype.displayEditProgressInput = function(book) {
-  book.readStatus = '.edit progress';
-  renderBooks(myLibrary);
-};
-Book.prototype.updateProgressBar = function(book, currentPage) {
-  book.readStatus = 'currently reading';
-  book.currentPage = currentPage;
-  renderBooks(myLibrary);
-};
 
 
 // RENDER BOOKS
