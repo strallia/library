@@ -59,9 +59,14 @@ const currentPageInput = document.querySelector("#current-page");
 const hiddenAsterisk = document.querySelector('span.hidden');
 
 openDialogBtn.addEventListener('click', () => dialog.showModal());
+function resetForm() {
+  form.reset();
+  currentPageInput.setAttribute('disabled', '');
+  hiddenAsterisk.classList.add('hidden');
+};
 closeDialogBtn.addEventListener('click', (event) => {
   event.preventDefault();
-  form.reset();
+  resetForm();
   dialog.close();
 });
 addBookBtn.addEventListener('click', (event) => {
@@ -75,7 +80,7 @@ addBookBtn.addEventListener('click', (event) => {
     currentPageInput.value
   ));
   renderBooks(myLibrary);
-  form.reset();
+  resetForm();
   dialog.close();
 };
 });
