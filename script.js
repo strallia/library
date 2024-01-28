@@ -71,19 +71,26 @@ closeDialogBtn.addEventListener('click', (event) => {
 });
 addBookBtn.addEventListener('click', (event) => {
   if (form.checkValidity()) {
-  event.preventDefault();
-  myLibrary.push(new Book(
-    titleInput.value,
-    authorInput.value,
-    readStatusInput.value,
-    totalPagesInput.value,
-    currentPageInput.value
-  ));
-  renderBooks(myLibrary);
-  resetForm();
-  dialog.close();
-};
+    event.preventDefault();
+    myLibrary.push(new Book(
+      titleInput.value,
+      authorInput.value,
+      readStatusInput.value,
+      totalPagesInput.value,
+      currentPageInput.value
+    ));
+    renderBooks(myLibrary);
+    resetForm();
+    dialog.close();
+  };
 });
+titleInput.addEventListener('change', () => {
+  if (titleInput.validity.valueMissing) {
+    titleInput.setCustomValidity('Please enter a title.');
+  } else {
+    titleInput.setCustomValidity('');
+  }
+})
 readStatusInput.addEventListener('change', () => {
   currentPageInput.setAttribute('disabled', '');
   hiddenAsterisk.classList.add('hidden');
