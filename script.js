@@ -70,7 +70,9 @@ closeDialogBtn.addEventListener('click', (event) => {
   dialog.close();
 });
 addBookBtn.addEventListener('click', (event) => {
-  if (form.checkValidity()) {
+  if (!form.checkValidity()) {
+    showError();
+  } else {
     event.preventDefault();
     myLibrary.push(new Book(
       titleInput.value,
@@ -84,13 +86,34 @@ addBookBtn.addEventListener('click', (event) => {
     dialog.close();
   };
 });
-titleInput.addEventListener('change', () => {
+const showError = () => {
   if (titleInput.validity.valueMissing) {
     titleInput.setCustomValidity('Please enter a title.');
-  } else {
+  }  else {
     titleInput.setCustomValidity('');
   }
-})
+
+  if (authorInput.validity.valueMissing) {
+    authorInput.setCustomValidity('Please enter an author.');
+  } else {
+    authorInput.setCustomValidity('');
+  }
+
+  if (totalPagesInput.validity.valueMissing) {
+    totalPagesInput.setCustomValidity('Please enter a number.');
+  } else {
+    totalPagesInput.setCustomValidity('');
+  }
+
+  if (currentPageInput.validity.valueMissing) {
+    currentPageInput.setCustomValidity('Please enter a number less than the total pages.');
+  } else {
+    currentPageInput.setCustomValidity('');
+  }
+};
+[titleInput, authorInput, totalPagesInput, currentPageInput].forEach((input) => {
+  input.addEventListener('input', showError);
+});
 readStatusInput.addEventListener('change', () => {
   currentPageInput.setAttribute('disabled', '');
   hiddenAsterisk.classList.add('hidden');
